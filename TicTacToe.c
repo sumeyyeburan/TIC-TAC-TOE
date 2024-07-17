@@ -16,23 +16,34 @@ void printWinner(char winner);
 int main(){
 	char winner=' ';
 	int i,j;
+	
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 	printf("\n****** WELCOME TIC TAC TOE GAME ******\n");
+	
 	for (i = 0; i < 3; i++) {
         for (j = 0; j < 3; j++) {
             board[i][j] = ' ';
         }
     }
+    
+	srand(time(NULL));
 	
 	while(winner==' ' && checkFreeSpaces()>0){
 		printBoard();
 		
 		playerMove();
 		winner=checkWinner();
+		if (winner != ' ' || checkFreeSpaces() == 0) {
+            break;
+        }
 		
 		printBoard();
+		
 		computerMove();
-		winner=checkWinner();	
+		winner=checkWinner();
+		if (winner != ' ' || checkFreeSpaces() == 0) {
+            break;
+        }	
  	}
 	printBoard();
 	printWinner(winner);
@@ -101,7 +112,6 @@ void playerMove(){
 }
 
 void computerMove(){
-	srand(time(NULL));
 	int row,column;
 	
 	if(checkFreeSpaces()>0){
